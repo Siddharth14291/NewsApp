@@ -14,7 +14,7 @@ class PostsViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     private var cancellables = Set<AnyCancellable>()
     var articlesByCategory: [String: [Article]] = [:]
-
+    
     func fetchPosts(category: String) {
         if let existingArticles = articlesByCategory[category] {
             articles = existingArticles

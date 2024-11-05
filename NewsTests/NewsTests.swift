@@ -29,8 +29,6 @@ class PostsViewModelTests: XCTestCase {
     
     func testFetchPostsRealData() {
         let category = "business"
-        viewModel = PostsViewModel(urlSession: URLSession.shared)
-        
         let expectation = self.expectation(description: "Fetch posts should succeed with actual data")
         viewModel.fetchPosts(category: category)
         viewModel.$articles
@@ -48,8 +46,6 @@ class PostsViewModelTests: XCTestCase {
     
     func testFetchPostsFailureRealData() {
         let invalidCategory = "invalidCategory"
-        viewModel = PostsViewModel(urlSession: URLSession.shared)
-        
         let expectation = self.expectation(description: "Fetch posts should fail with invalid category")
         viewModel.fetchPosts(category: invalidCategory)
 
