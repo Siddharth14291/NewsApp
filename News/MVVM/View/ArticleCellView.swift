@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ArticleCellView: View {
     let article: Article
-    let appName = "News Express"
     
     var body: some View {
         HStack {
@@ -31,18 +30,26 @@ struct ArticleCellView: View {
                         .cornerRadius(5)
                         .frame(width: 100, height: 100)
                     
-                    Text(getAppInitials())
+                    Text(Utilities.getAppInitials())
                         .font(.system(size: 40, weight: .bold))
                         .foregroundColor(.white)
                         .frame(width: 100, height: 100)
                 }
+                .shadow(radius: 5)
             }
 
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(article.title ?? TextUtility.General.noTitle.rawValue)
                     .font(.headline)
                     .lineLimit(3)
                     .truncationMode(.tail)
+                
+                if let publishedAt = article.publishedAt {
+                    Text("\(Utilities.formattedDate(from: publishedAt))")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                        .padding(.top, 2)
+                }
             }
             .padding(.leading, 8)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -50,10 +57,5 @@ struct ArticleCellView: View {
         .padding(.vertical, 2)
         .frame(height: 100)
         .contentShape(Rectangle())
-    }
-
-    private func getAppInitials() -> String {
-        let initials = appName.split(separator: " ").compactMap { $0.first }
-        return initials.prefix(2).map { String($0) }.joined().uppercased()
     }
 }

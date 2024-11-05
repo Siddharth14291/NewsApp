@@ -11,7 +11,7 @@ struct DashboardView: View {
     
     @StateObject private var viewModel = PostsViewModel()
     @State private var selectedCategory: String = DashboardView.arrayCategory[0]
-    @State private var hasLoaded: Bool = false  // New state variable
+    @State private var hasLoaded: Bool = false
     static var arrayCategory = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
     
     var body: some View {

@@ -24,12 +24,17 @@ struct Utilities {
             return "\(hours) hour\(hours == 1 ? "" : "s") ago"
         } else {
             let outputFormatter = DateFormatter()
-            outputFormatter.dateStyle = .long
+            outputFormatter.dateStyle = .medium
             outputFormatter.timeStyle = .short
             outputFormatter.timeZone = TimeZone.current
             
             return outputFormatter.string(from: date)
         }
+    }
+    
+    static func getAppInitials() -> String {
+        let initials = TextUtility.General.appName.rawValue.split(separator: " ").compactMap { $0.first }
+        return initials.prefix(2).map { String($0) }.joined().uppercased()
     }
 }
 
@@ -41,6 +46,8 @@ class TextUtility {
         case noTitle = "No Title"
         case home = "Home"
         case noDescription = "No Description"
+        case appName = "News Express"
+        case share = "Share"
     }
 }
 
