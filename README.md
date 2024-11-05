@@ -26,7 +26,7 @@ URLSession: To fetch news articles from an external API.
 **Setup Instructions**
 **Clone the repository:**
 bash
-git clone https://github.com/yourusername/NewsReaderApp.git
+git clone https://github.com/Siddharth14291/NewsReaderApp.git
 Open the project in Xcode:
 bash
 open NewsReaderApp.xcodeproj
