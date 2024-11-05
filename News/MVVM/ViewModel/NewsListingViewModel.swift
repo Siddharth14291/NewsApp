@@ -8,19 +8,14 @@
 import Foundation
 import Combine
 
-// Define the URLSessionProtocol
-protocol URLSessionProtocol {
-    func dataTaskPublisher(for url: URL) -> AnyPublisher<(data: Data, response: URLResponse), URLError>
-}
+//
+//  NewsListingViewModel.swift
+//  News
+//
+//  Created by Siddharth Adhvaryu on 01/11/24.
+//
 
-// Extend URLSession to conform to the URLSessionProtocol
-extension URLSession: URLSessionProtocol {
-    func dataTaskPublisher(for url: URL) -> AnyPublisher<(data: Data, response: URLResponse), URLError> {
-        return self.dataTaskPublisher(for: url)
-    }
-}
-
-
+import Foundation
 import Combine
 
 class PostsViewModel: ObservableObject {
@@ -29,13 +24,6 @@ class PostsViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     private var cancellables = Set<AnyCancellable>()
     var articlesByCategory: [String: [Article]] = [:]
-    
-    // Injected URLSession (default is URLSession.shared)
-    private var urlSession: URLSessionProtocol
-    
-    init(urlSession: URLSessionProtocol = URLSession.shared) {
-        self.urlSession = urlSession
-    }
 
     func fetchPosts(category: String) {
         if let existingArticles = articlesByCategory[category] {
@@ -47,8 +35,8 @@ class PostsViewModel: ObservableObject {
         
         guard let url = APIEndpoint.topHeadlines(category: category).url else { return }
 
-        urlSession.dataTaskPublisher(for: url)
-            .map(\.data)
+        URLSession.shared.dataTaskPublisher(for: url)
+            .map(\.data) // Get the data from the publisher
             .decode(type: RootClass.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
