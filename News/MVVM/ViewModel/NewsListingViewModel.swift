@@ -8,16 +8,6 @@
 import Foundation
 import Combine
 
-//
-//  NewsListingViewModel.swift
-//  News
-//
-//  Created by Siddharth Adhvaryu on 01/11/24.
-//
-
-import Foundation
-import Combine
-
 class PostsViewModel: ObservableObject {
     @Published var articles: [Article] = []
     @Published var errorMessage: String?
@@ -36,7 +26,7 @@ class PostsViewModel: ObservableObject {
         guard let url = APIEndpoint.topHeadlines(category: category).url else { return }
 
         URLSession.shared.dataTaskPublisher(for: url)
-            .map(\.data) // Get the data from the publisher
+            .map(\.data)
             .decode(type: RootClass.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
